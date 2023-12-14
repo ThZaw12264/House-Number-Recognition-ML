@@ -6,7 +6,7 @@ from sklearn.metrics import zero_one_loss
 
 from sklearn.linear_model import LogisticRegression
 
-im_trx, im_testx, im_try, im_testy = id.initdata()
+im_trx, im_testx, im_try, im_testy = id.lrdata()
 
 seed = 100101
 
