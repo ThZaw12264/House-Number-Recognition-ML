@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+scikit-learn>=1.1
+scipy
+Pillow
+imageio
+glob2
+torch
