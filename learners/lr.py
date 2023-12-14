@@ -1,36 +1,12 @@
 import numpy as np 
-import pandas as pd 
 import matplotlib.pyplot as plt
-import scipy.io
+import initdata as id
 
 from sklearn.metrics import zero_one_loss
 
 from sklearn.linear_model import LogisticRegression
 
-NUM_TRAIN_IMAGES = 73257
-NUM_TEST_IMAGES = 26032
-IMAGE_SIZE = 32 * 32 * 3
-
-
-im_trx = np.zeros(shape=(NUM_TRAIN_IMAGES,IMAGE_SIZE))
-im_try = np.zeros(shape=(NUM_TRAIN_IMAGES,1))
-
-im_testx = np.zeros(shape=(NUM_TEST_IMAGES,IMAGE_SIZE))
-im_testy = np.zeros(shape=(NUM_TEST_IMAGES,1))
-
-train_mat =  scipy.io.loadmat("../data/train_32x32.mat")
-test_mat =  scipy.io.loadmat("../data/test_32x32.mat")
-
-
-X_train = train_mat['X'].transpose(3, 0, 1, 2) 
-X_test = test_mat['X'].transpose(3, 0, 1, 2)
-
-im_trx = X_train.reshape(NUM_TRAIN_IMAGES, -1)
-im_testx = X_test.reshape(NUM_TEST_IMAGES, -1)
-
-im_try = train_mat['y']
-im_testy = test_mat['y']
-
+im_trx, im_testx, im_try, im_testy = id.initdata()
 
 seed = 100101
 
@@ -38,7 +14,7 @@ im_trx_subset = im_trx[:10000]
 im_try_subset = im_try[:10000]
 
 # Fit training data to learner and predict
-learner = LogisticRegression(random_state=seed) #,C=0.000001,max_iter=500
+learner = LogisticRegression(random_state=seed,C=0.000001,max_iter=500)
 learner.fit(im_trx_subset, im_try_subset.ravel())
 pred_train = learner.predict(im_trx_subset)
 pred_test = learner.predict(im_testx)
@@ -97,7 +73,7 @@ def plot_max_iter():
 
 
 def plot_train_sizes():
-    train_sizes = [500,1000,5000,10000,25000,50000,NUM_TRAIN_IMAGES]
+    train_sizes = [500,1000,5000,10000,25000,50000,id.NUM_TRAIN_IMAGES]
     tr_er = []
     te_er = []
 
@@ -135,7 +111,8 @@ def plot_coefficients():
         ax[i].axis('off')
     plt.show()
 
-plot_regularization()
+plot_train_sizes()
+plot_coefficients()
 
 
 # def get_wrong_predictions():
