@@ -37,7 +37,7 @@ for i in range(6):
 
 plt.show()
 
-# plt.plot(history.history['accuracy'], label='accuracy')
-# plt.plot(history.history['val_accuracy'], label='val_accuracy')
-# plt.legend(loc='lower right')
-# plt.show()
+plt.plot(history.history['accuracy'], label='accuracy')
+plt.plot(history.history['val_accuracy'], label='val_accuracy')
+plt.legend(loc='lower right')
+plt.show()
